@@ -55,3 +55,23 @@ extractDigits []
 extractDigits (chr : restString)
   | isDigit chr = chr : extractDigits restString
   | otherwise   = extractDigits restString
+
+inRadius :: ColourPoint -> Float -> [ColourPoint] -> [ColourPoint]
+inRadius point radius []
+  = []
+inRadius point radius (p : ps)
+  | distance point p <= radius = p : inRadius point radius ps
+  | otherwise                  = inRadius point radius ps
+
+product_x :: Num a => [a] -> a
+product_x []       = 1
+product_x (x : xs) = x * product xs
+
+sum_x :: Num a => [a] -> a
+sum_x []       = 0
+sum_x (x : xs) = x + sum_x xs
+
+minList :: [Int] -> Int
+minList []       = maxBound
+-- minList (x : []) = x
+minList (x : xs) = x `min` minList xs
