@@ -75,3 +75,29 @@ minList :: [Int] -> Int
 minList []       = maxBound
 -- minList (x : []) = x
 minList (x : xs) = x `min` minList xs
+
+snoc :: a -> [a] -> [a]
+x `snoc` xs = xs ++ [x]
+
+
+balance `deduct` x
+  | balance < x = error ("Your account balance is " ++ show balance ++
+                         " - cannot deduct " ++ show x ++ " cents")
+  | otherwise = balance - x
+
+deductFromAccount balance []
+  = balance
+deductFromAccount balance (d : ds)
+  | balance < d = error ("Your account balance is " ++ show balance ++
+                         " - cannot deduct " ++ show d ++ " cents")
+  | otherwise   = deductFromAccount (balance - d) ds
+
+
+stringToInt :: String -> Int
+stringToInt str = stringToIntAcc 0 str
+
+stringToIntAcc :: Int -> String -> Int
+stringToIntAcc acc []
+  = acc
+stringToIntAcc acc (chr : restString)
+  = stringToIntAcc (10 * acc + digitToInt chr) restString
