@@ -101,3 +101,17 @@ stringToIntAcc acc []
   = acc
 stringToIntAcc acc (chr : restString)
   = stringToIntAcc (10 * acc + digitToInt chr) restString
+
+fastReverse :: [a] -> [a]
+fastReverse xs = reverseAcc [] xs
+  where
+    reverseAcc :: [a] -> [a] -> [a]
+    reverseAcc accList [] = accList
+    reverseAcc accList (x : xs) = reverseAcc (x : accList) xs
+
+xfSum :: Num a => [a] -> a
+xfSum xs = sumAcc 0 xs
+  where
+    sumAcc :: Num a => a -> [a] -> a
+    sumAcc acc []    = acc
+    sumAcc acc (x : xs) = sumAcc (x + acc) xs
