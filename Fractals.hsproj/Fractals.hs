@@ -14,3 +14,5 @@ house = [(300, 750), (300, 450), (270, 450), (500, 200),
 door :: Path
 door = [(420, 750), (420, 550), (580, 550), (580, 750)]
 
+-- Open ghci, Load Fractals and Call as below:
+-- writePng "draw.png" (drawPicture 2.0 [(lightgreen, house), (red, door)])
