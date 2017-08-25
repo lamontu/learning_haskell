@@ -22,7 +22,8 @@ spiralRays angle scaleFactor n colour line@(p1, p2)
   | n <= 0    = []
   | otherwise = (colour, [p1, p2]) : spiralRays angle scaleFactor (n - 1) newColour newLine
   where
-    newColour = fade colour
+    -- newColour = fade colour  -- spiralRays.png
+    newColour = if (n `mod` 3 == 0) then fade colour else colour -- sipralRays2.png
     newLine = scaleLine scaleFactor (rotateLine angle line)
 
 rotateLine :: Float -> Line -> Line
@@ -50,3 +51,4 @@ fade (redC, greenC, blueC, opacityC)
 -- Open ghci, load Fractals and then call as below:
 -- let myLine = ((400, 400), (420, 420))
 -- writePng "spiralRays.png" (drawPicture 2.0 (spiralRays (pi/7) 1.02 400 red myLine))
+-- writePng "spiralRays2.png" (drawPicture 4 (spiralRays (pi/27.2) 1.015 400 red myLine))
