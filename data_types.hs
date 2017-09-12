@@ -1,5 +1,4 @@
-
-data Point = Point Double Double deriving Show
+data Point = Point Double Double deriving (Show, Read)
 myPoint :: Point
 myPoint = Point 1.0 2.0
 
@@ -30,3 +29,9 @@ outcome us them | us == them = Tie
                 | otherwise  = Lose
 
 main = print (outcome Rock Paper)
+
+parseMove :: String -> Maybe Move
+parseMove str = case reads str of 
+  [(m, rest)] | ok rest -> Just m
+  _                     -> Nothing
+  where ok = all (`elem` " \r\n")
