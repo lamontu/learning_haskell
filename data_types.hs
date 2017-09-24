@@ -29,4 +29,13 @@ outcome Scissors Paper       = Win
 outcome us them | us == them = Tie
                 | otherwise  = Lose
 
-main = print (outcome Rock Paper)
+-- main = print (outcome Rock Paper)
+
+parseMove :: String -> Maybe Move
+parseMove str = case reads str of [(m, "")] -> Just m
+                                            -> Nothing
+parseMove :: String -> Maybe Move
+parseMove "Rock"     = Just Rock
+parseMove "Paper"    = Just Paper
+parseMove "Scissors" = Just Scissors
+parseMove _          = Nothing                                             
