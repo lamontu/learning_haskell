@@ -1,3 +1,5 @@
+import System.IO
+
 data Point = Point Double Double deriving (Show, Read)
 myPoint :: Point
 myPoint = Point 1.0 2.0
@@ -35,3 +37,22 @@ parseMove str = case reads str of
   [(m, rest)] | ok rest -> Just m
   _                     -> Nothing
   where ok = all (`elem` " \r\n")
+
+
+withTty = withFile "/dev/tty" ReadWriteMode
+
+getMove :: Handle -> IO Move
+getMove h = do
+  hPutStrLn h $ "Please enter one of " ++ show ([minBound..] :: [Move])
+  input <- hGetLine h
+  case parseMove input of Just move -> return move
+                          Nothing -> getMove h
+
+computerVsUser :: Move -> Handle -> IO ()
+computerVsUser computerMove h = do
+  userMove <- getMove h
+  let o = outcome userMove computerMove
+  hPutStrLn h $ "You " ++ show o
+
+-- GHCi data_types.hs
+-- withTty $ computerVsUser Rock
