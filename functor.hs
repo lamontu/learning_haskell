@@ -11,3 +11,11 @@ instance Functor' Maybe where
 instance Functor' (Either a) where
     fmap' f (Right x) = Right (f x)
     fmap' f (Left x) = Left x
+
+data Barry t k p = Barry { yabba :: p, dabba :: t k } deriving (Show)
+
+instance Functor' (Barry a b) where
+    fmap' f (Barry {yabba = x, dabba = y}) = Barry {yabba = f x, dabba = y}
+
+-- ghci functor.hs
+-- fmap' (*3) (Barry {yabba = 2, dabba = Just 'a'})
