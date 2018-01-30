@@ -1,6 +1,7 @@
 import Control.Monad
 
 main = do
+    -- different result in ghci
     mapM print [1..5]
     print "----------------"
     mapM_ print [1..5]
@@ -12,4 +13,5 @@ main = do
         color <- getLine
         return color)
     putStrLn "The colors that you associate with 1, 2, 3 and 4 are: "
-    mapM putStrLn colors
+    -- mapM putStrLn colors
+    forM colors putStrLn
