@@ -11,4 +11,11 @@ shortLinesOnly input =
         result = unlines shortLines
     in result
 
-main = interact $ unlines . filter ((<10) . length) . lines
+-- main = interact $ unlines . filter ((<10) . length) . lines
+
+respondPalindromes contents = unlines (map (\xs ->
+    if isPalindrome xs then "palindrome" else "not a palindrome")
+        (lines contents))
+    where isPalindrome xs = xs == reverse xs
+
+main = interact respondPalindromes
