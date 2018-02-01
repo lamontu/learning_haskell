@@ -1,0 +1,5 @@
+write letters
+coding
+have lunch
+travel
+learn haskell
