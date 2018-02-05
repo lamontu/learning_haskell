@@ -12,14 +12,13 @@ askForNumber gen = do
     numberString <- getLine
     when (not $ null numberString) $ do
         let lst = reads numberString
-        if [] == lst
-            then do
-                putStrLn "invalid input"
-                askForNumber newGen
-            else putStr ""
-        
+        if [] == lst then do
+            putStrLn "invalid input"
+            askForNumber newGen
+        else putStr ""
+
         let (number, errorMsg) = head lst
-            
+
         if randNumber == number
             then putStrLn "You are correct!"
             else putStrLn $ "Sorry, it was " ++ show randNumber
