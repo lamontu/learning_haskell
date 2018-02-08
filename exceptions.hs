@@ -1,9 +1,8 @@
 import System.Environment
 import System.IO
--- import System.IO.Error
+import System.IO.Error
 import Control.Exception
 
--- main = toTry `catchIOError` handler
 main = toTry `catch` handler
 
 toTry :: IO ()
@@ -13,4 +12,6 @@ toTry = do
     putStrLn $ "The file has " ++ show (length (lines contents))++" lines!"
 
 handler :: IOError -> IO ()
-handler e = putStrLn "Whoops, had some trouble!"
+handler e
+    | isDoesNotExistError e = putStrLn "The file doesn't exist!"
+    | otherwise = ioError e
