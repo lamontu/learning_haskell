@@ -19,3 +19,11 @@ instance Functor' (Barry a b) where
 
 -- ghci functor.hs
 -- fmap' (*3) (Barry {yabba = 2, dabba = Just 'a'})
+
+instance Functor' IO where
+    fmap' f action = do
+        result <- action
+        return (f result)
+
+instance Functor' ((->) r) where
+    fmap' f g = (\x -> f (g x))
