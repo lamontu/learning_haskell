@@ -19,3 +19,17 @@ x -: f = f x
 
 banana :: Pole -> Maybe Pole
 banana _ = Nothing
+
+
+routine = return (0, 0) >>= landLeft 2 
+    -- >> Nothing
+    >>= landRight 2 >>= landLeft 1
+
+-- Use do syntax for many monad value (same as above) 
+routine' :: Maybe Pole
+routine' = do
+    start <- return (0, 0)
+    first <- landLeft 2 start
+    -- Nothing
+    second <- landRight 2 first
+    landLeft 1 second
