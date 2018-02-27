@@ -33,3 +33,28 @@ routine' = do
     -- Nothing
     second <- landRight 2 first
     landLeft 1 second
+
+-- Associativity of Monad
+pole = return (0, 0) >>= landRight 2 >>= landLeft 2 >>= landRight 2
+pole' = return (0, 0) >>= (\x ->
+        landRight 2 x >>= (\y ->
+        landLeft 2 y >>= (\z ->
+        landRight 2 z)))
+
+(<=<) :: (Monad m) => (b -> m c) -> (a -> m b) -> (a -> m c)
+f <=< g = (\x -> g x >>= f)
+
+f x = [x, -x]
+g x = [x*3, x*2]
+h = f <=< g
+res = h 3
+
+-- Left identity of Monad
+ll = return <=< f
+lres = ll 3
+lres' = f 3
+
+-- Right identity of Monad
+rr = f <=< return
+rres = rr 3
+rres' = f 3
